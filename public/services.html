@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Services — Enterprise CRUD</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Services</h1>
+    <nav class="topnav">
+      <a class="nav-btn" href="/">Home</a>
+      <a class="nav-btn" href="/employees.html">Employees</a>
+      <a class="nav-btn" href="/customers.html">Customers</a>
+      <a class="nav-btn" href="/services.html">Services</a>
+    </nav>
+  </header>
+  <main class="container">
+    <section class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h2>Service Catalog</h2>
+        <div style="display:flex;gap:12px;align-items:center">
+          <div id="pagination-controls">
+            <button id="prevBtn">Prev</button>
+            <span id="pageLabel">Page 1</span>
+            <button id="nextBtn">Next</button>
+          </div>
+          <button id="createBtn">+ New Service</button>
+          <div>
+            <button id="orderBtn" class="nav-btn" title="Toggle ID order">Order: Asc</button>
+          </div>
+        </div>
+      </div>
+      <table id="servicesTable" class="table" aria-label="Services list">
+        <thead><tr><th>ID</th><th>Name</th><th>Category</th><th>Price</th><th>Description</th><th>Actions</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <h3 id="modalTitle">New Service</h3>
+      <form id="serviceForm">
+        <input name="id" type="hidden">
+        <label>Name<br><input name="name" required></label><br>
+        <label>Category<br><input name="category"></label><br>
+        <label>Price<br><input name="price" type="number" step="0.01"></label><br>
+        <label>Description<br><input name="description"></label><br>
+        <div style="margin-top:8px">
+          <button type="submit">Save</button>
+          <button type="button" id="cancelBtn">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/services.js"></script>
+  <footer class="site-footer">
+    <span>© <span id="sevdev-year">2026</span> SEVDEV. All rights reserved.</span>
+  </footer>
+  <script src="/auth.js"></script>
+</body>
+</html>

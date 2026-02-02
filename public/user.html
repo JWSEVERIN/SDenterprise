@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/user.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>Dashboard</h1>
+    <nav id="auth-nav"></nav>
+  </header>
+
+  <main class="container">
+    <section id="counts" class="cards">
+      <div class="card"><h3 id="emp-count">—</h3><p>Employees</p></div>
+      <div class="card"><h3 id="cust-count">—</h3><p>Customers</p></div>
+      <div class="card"><h3 id="svc-count">—</h3><p>Services</p></div>
+    </section>
+
+    <section id="recent">
+      <h2>Recent Items</h2>
+      <div class="grid">
+        <div>
+          <h3>Employees</h3>
+          <ul id="recent-employees"></ul>
+        </div>
+        <div>
+          <h3>Customers</h3>
+          <ul id="recent-customers"></ul>
+        </div>
+        <div>
+          <h3>Services</h3>
+          <ul id="recent-services"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/auth.js"></script>
+  <script src="/user.js"></script>
+</body>
+</html>

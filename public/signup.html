@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/signup.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <h1 class="site-title">SEVDEV Enterprise</h1>
+      <form class="search-form" id="searchForm">
+        <input type="text" id="searchInput" class="search-bar" placeholder="Search..." aria-label="Search site">
+      </form>
+      <button id="hamburger" class="hamburger" aria-label="Toggle menu">☰</button>
+      <nav class="topnav">
+        <a class="nav-btn" href="/">Home</a>
+        <a class="nav-btn" href="/employees.html">Employees</a>
+        <a class="nav-btn" href="/customers.html">Customers</a>
+        <a class="nav-btn" href="/services.html">Services</a>
+        <a class="nav-btn" href="/login.html" id="loginLink">Login</a>
+        <a class="nav-btn" href="#" id="logoutBtn" style="display:none">Logout</a>
+      </nav>
+    </div>
+  </header>
+  <main class="container">
+    <h1>Create account</h1>
+    <form id="signupForm">
+      <label>Username<input name="username" required /></label>
+      <label>Email<input name="email" type="email" required /></label>
+      <label>Password<div class="pwd-wrapper"><input name="password" type="password" required /><button type="button" class="pwd-toggle" aria-label="Toggle password visibility">👁</button></div></label>
+      <button type="submit" class="btn-primary">Sign up</button>
+    </form>
+    <p id="msg"></p>
+  </main>
+  <script>
+    // Search functionality
+    document.getElementById('searchForm')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const query = document.getElementById('searchInput').value.trim();
+      if (query) {
+        const section = query.toLowerCase().includes('employee') ? '/employees.html' : 
+                        query.toLowerCase().includes('customer') ? '/customers.html' : 
+                        query.toLowerCase().includes('service') ? '/services.html' : '/';
+        window.location.href = section;
+      }
+    });
+
+    // Password toggle
+    document.querySelectorAll('.pwd-toggle').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const input = btn.closest('.pwd-wrapper').querySelector('input');
+        input.type = input.type === 'password' ? 'text' : 'password';
+      });
+    });
+
+    const form = document.getElementById('signupForm');
+    const msg = document.getElementById('msg');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const loginLink = document.getElementById('loginLink');
+
+    async function checkAuth() {
+      try {
+        const res = await fetch('/api/auth-check');
+        if (res.ok) {
+          loginLink.style.display = 'none';
+          logoutBtn.style.display = 'inline';
+        } else {
+          loginLink.style.display = 'inline';
+          logoutBtn.style.display = 'none';
+        }
+      } catch (e) {
+        loginLink.style.display = 'inline';
+        logoutBtn.style.display = 'none';
+      }
+    }
+
+    logoutBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
+      await fetch('/logout', { method: 'POST' });
+      window.location = '/login.html';
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.textContent = '';
+      const fd = new FormData(form);
+      const body = { username: fd.get('username'), email: fd.get('email'), password: fd.get('password') };
+      if (!body.email || !/^\S+@\S+\.\S+$/.test(body.email)) { msg.textContent = 'Please enter a valid email.'; return; }
+      try {
+        const res = await fetch('/signup', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+        const j = await res.json();
+        if (!res.ok) throw new Error(j.error || 'signup failed');
+        window.location = '/';
+      } catch (err) {
+        msg.textContent = err.message;
+      }
+    });
+
+    checkAuth();
+
+    // Hamburger menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const topnav = document.querySelector('.topnav');
+    hamburger?.addEventListener('click', () => {
+      topnav.classList.toggle('active');
+    });
+
+    // Close menu on nav link click
+    document.querySelectorAll('.nav-btn').forEach(link => {
+      link.addEventListener('click', () => {
+        topnav.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>

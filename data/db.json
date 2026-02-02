@@ -1,0 +1,130 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "name": "John W Severin",
+      "title": "owner",
+      "email": "johnwseverin71@gmail.com",
+      "created_at": "2026-02-01T18:51:10.701Z"
+    },
+    {
+      "id": 2,
+      "name": "Bob",
+      "title": "Engineer",
+      "email": "bob@example.test",
+      "created_at": "2026-02-01T19:06:04.788Z"
+    },
+    {
+      "id": 3,
+      "name": "User3",
+      "title": "Staff",
+      "email": "user3@test",
+      "created_at": "2026-02-01T19:06:17.389Z"
+    },
+    {
+      "id": 4,
+      "name": "User4",
+      "title": "Staff",
+      "email": "user4@test",
+      "created_at": "2026-02-01T19:06:17.440Z"
+    },
+    {
+      "id": 5,
+      "name": "User5",
+      "title": "Staff",
+      "email": "user5@test",
+      "created_at": "2026-02-01T19:06:17.480Z"
+    },
+    {
+      "id": 6,
+      "name": "User6",
+      "title": "Staff",
+      "email": "user6@test",
+      "created_at": "2026-02-01T19:06:17.501Z"
+    },
+    {
+      "id": 7,
+      "name": "User7",
+      "title": "Staff",
+      "email": "user7@test",
+      "created_at": "2026-02-01T19:06:17.525Z"
+    },
+    {
+      "id": 8,
+      "name": "User8",
+      "title": "Staff",
+      "email": "user8@test",
+      "created_at": "2026-02-01T19:06:17.548Z"
+    },
+    {
+      "id": 9,
+      "name": "User9",
+      "title": "Staff",
+      "email": "user9@test",
+      "created_at": "2026-02-01T19:06:17.570Z"
+    },
+    {
+      "id": 10,
+      "name": "User10",
+      "title": "Staff",
+      "email": "user10@test",
+      "created_at": "2026-02-01T19:06:17.591Z"
+    },
+    {
+      "id": 11,
+      "name": "User11",
+      "title": "Staff",
+      "email": "user11@test",
+      "created_at": "2026-02-01T19:06:17.615Z"
+    },
+    {
+      "id": 12,
+      "name": "User12",
+      "title": "Staff",
+      "email": "user12@test",
+      "created_at": "2026-02-01T19:06:17.637Z"
+    }
+  ],
+  "seq": 12,
+  "custSeq": 2,
+  "customers": [
+    {
+      "id": 1,
+      "name": "Jeff Charles",
+      "company": "TTX,Inc",
+      "email": "jcharles@ttxinc.com",
+      "phone": "(920)743-6568",
+      "created_at": "2026-02-01T18:57:47.225Z",
+      "notes": ""
+    },
+    {
+      "id": 2,
+      "name": "John Elliot Cisneros",
+      "company": "TheSUM",
+      "email": "jelliotcisneros@thesum.org",
+      "phone": "(434)260-9377",
+      "notes": "Important VIP",
+      "created_at": "2026-02-01T20:05:39.686Z"
+    }
+  ],
+  "svcSeq": 1,
+  "services": [
+    {
+      "id": 1,
+      "name": "CyberSecurity",
+      "category": "Network",
+      "price": 1200,
+      "description": "Network Monitoring",
+      "created_at": "2026-02-01T20:03:29.095Z"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "jseverin",
+      "passwordHash": "$2a$10$STJ4gh1yJf8gGhzuzFkLC.P665eNQJVZzwe3i1A1FUk8vju2slfwO",
+      "email": "johnwseverin71@gmail.com",
+      "created_at": "2026-02-01T23:53:23.262Z"
+    }
+  ]
+}

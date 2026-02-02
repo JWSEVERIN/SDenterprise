@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Login — Enterprise CRUD</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <h1 class="site-title">SEVDEV Enterprise</h1>
+      <form class="search-form" id="searchForm">
+        <input type="text" id="searchInput" class="search-bar" placeholder="Search..." aria-label="Search site">
+      </form>
+      <nav class="topnav">
+        <a class="nav-btn" href="/">Home</a>
+        <a class="nav-btn" href="/employees.html">Employees</a>
+        <a class="nav-btn" href="/customers.html">Customers</a>
+        <a class="nav-btn" href="/services.html">Services</a>
+        <a class="nav-btn" href="/login.html" id="loginLink">Login</a>
+        <a class="nav-btn" href="#" id="logoutBtn" style="display:none">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" style="max-width:420px;margin:80px auto">
+    <h2>Sign in</h2>
+    <form id="loginForm">
+      <label>Username<br><input name="username" required></label><br>
+      <label>Password<br><div class="pwd-wrapper"><input name="password" type="password" required><button type="button" class="pwd-toggle" aria-label="Toggle password visibility">👁</button></div></label><br>
+      <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+        <button type="submit">Sign in</button>
+        <button id="signupBtn" class="btn-primary" type="button">Sign up</button>
+        <a href="/" style="color:var(--muted);text-decoration:none">Back to home</a>
+      </div>
+    </form>
+      <p style="margin-top:12px;color:var(--muted)">Demo credentials: <strong>admin / password</strong></p>
+  </main>
+  <script>
+    // Search functionality
+    document.getElementById('searchForm')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const query = document.getElementById('searchInput').value.trim();
+      if (query) {
+        const section = query.toLowerCase().includes('employee') ? '/employees.html' : 
+                        query.toLowerCase().includes('customer') ? '/customers.html' : 
+                        query.toLowerCase().includes('service') ? '/services.html' : '/';
+        window.location.href = section;
+      }
+    });
+
+    // Password toggle
+    document.querySelectorAll('.pwd-toggle').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const input = btn.closest('.pwd-wrapper').querySelector('input');
+        input.type = input.type === 'password' ? 'text' : 'password';
+      });
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const f = e.target;
+      const body = { username: f.username.value.trim(), password: f.password.value };
+      const res = await fetch('/login', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) });
+      if (res.ok) { window.location = '/employees.html'; } else { alert('Login failed'); }
+    });
+    const signupBtn = document.getElementById('signupBtn');
+    if (signupBtn) signupBtn.addEventListener('click', ()=> window.location = '/signup.html');
+  </script>
+  <script src="/auth.js"></script>
+</body>
+</html>

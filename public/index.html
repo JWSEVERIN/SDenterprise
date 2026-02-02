@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Enterprise CRUD</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <h1>SEVDEV Enterprise</h1>
+      <form class="search-form" id="searchForm">
+        <input type="text" id="searchInput" class="search-bar" placeholder="Search..." aria-label="Search site">
+      </form>
+      <button id="hamburger" class="hamburger" aria-label="Toggle menu">☰</button>
+      <nav class="topnav">
+        <a class="nav-btn" href="/">Home</a>
+        <a class="nav-btn" href="/employees.html">Employees</a>
+        <a class="nav-btn" href="/customers.html">Customers</a>
+        <a class="nav-btn" href="/services.html">Services</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="hero container">
+    <div class="hero-left">
+      <h2 class="hero-title">Manage data. Ship faster.</h2>
+      <p class="hero-sub">A lightweight enterprise-style CRUD admin with pagination, simple file storage, and an extendable REST API — ready for prototyping and internal tools.</p>
+      <div class="hero-ctas">
+        <a class="cta-btn" href="/employees.html">Open Employees</a>
+        <a class="cta-outline" href="/customers.html">View Customers</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="stats-grid">
+        <a class="stat card" href="/employees.html">
+          <div class="stat-value" id="stat-employees">—</div>
+          <div class="stat-label">Employees</div>
+        </a>
+        <a class="stat card" href="/customers.html">
+          <div class="stat-value" id="stat-customers">—</div>
+          <div class="stat-label">Customers</div>
+        </a>
+        <a class="stat card" href="/services.html">
+          <div class="stat-value" id="stat-services">—</div>
+          <div class="stat-label">Services</div>
+        </a>
+      </div>
+    </div>
+  </main>
+  <section id="about" class="container">
+    <div class="panel">
+      <h3>About SEVDEV Enterprise</h3>
+      <p>SEVDEV Enterprise is a minimal, file-backed CRUD demo for prototyping internal admin tools. It provides REST endpoints, simple authentication, and client-side UIs for managing employees, customers, and services.</p>
+      <p><a class="cta-outline" href="/user.html">Learn more</a></p>
+    </div>
+  </section>
+  <section id="contact" class="container">
+    <div class="panel">
+      <h3>Contact</h3>
+      <p>If you have questions or need support, email us at <a href="mailto:hello@sevdev.local">hello@sevdev.local</a> or use the form below to compose an email from your client.</p>
+      <form id="contactForm">
+        <div>
+          <label for="cname">Name</label>
+          <input id="cname" name="name" type="text" placeholder="Your name" />
+        </div>
+        <div>
+          <label for="cemail">Email</label>
+          <input id="cemail" name="email" type="email" placeholder="you@example.com" />
+        </div>
+        <div>
+          <label for="cmsg">Message</label>
+          <textarea id="cmsg" name="message" rows="4" placeholder="How can we help?"></textarea>
+        </div>
+        <div style="margin-top:10px">
+          <button type="submit" class="cta-btn">Send</button>
+          <a class="cta-outline" href="mailto:hello@sevdev.local">Email directly</a>
+        </div>
+      </form>
+    </div>
+  </section>
+  <script>
+    // Search functionality
+    document.getElementById('searchForm')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const query = document.getElementById('searchInput').value.trim();
+      if (query) {
+        const section = query.toLowerCase().includes('employee') ? '/employees.html' : 
+                        query.toLowerCase().includes('customer') ? '/customers.html' : 
+                        query.toLowerCase().includes('service') ? '/services.html' : '/';
+        window.location.href = section;
+      }
+    });
+
+    // populate stat counts
+    async function loadStats(){
+      try{
+        const e = await fetch('/api/employees?page=1&per_page=1').then(r=>r.json());
+        const c = await fetch('/api/customers?page=1&per_page=1').then(r=>r.json());
+        const s = await fetch('/api/services?page=1&per_page=1').then(r=>r.json());
+        document.getElementById('stat-employees').textContent = e.total || 0;
+        document.getElementById('stat-customers').textContent = c.total || 0;
+        document.getElementById('stat-services').textContent = s.total || 0;
+      }catch(e){ console.warn('stats load failed', e); }
+    }
+        document.addEventListener('DOMContentLoaded', loadStats);
+
+        // Contact form: compose email using mailto as a simple client-side fallback
+        document.getElementById('contactForm')?.addEventListener('submit', function (ev) {
+          ev.preventDefault();
+          const name = document.getElementById('cname').value.trim();
+          const email = document.getElementById('cemail').value.trim();
+          const msg = document.getElementById('cmsg').value.trim();
+          const subject = encodeURIComponent('Support request from ' + (name || email || 'website'));
+          const body = encodeURIComponent((msg || '') + '\n\nFrom: ' + (name || '') + (email ? ' <' + email + '>' : ''));
+          window.location.href = `mailto:hello@sevdev.local?subject=${subject}&body=${body}`;
+        });
+
+        // Hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const topnav = document.querySelector('.topnav');
+        hamburger?.addEventListener('click', () => {
+          topnav.classList.toggle('active');
+        });
+
+        // Close menu on nav link click
+        document.querySelectorAll('.nav-btn').forEach(link => {
+          link.addEventListener('click', () => {
+            topnav.classList.remove('active');
+          });
+        });
+  </script>
+  <footer class="site-footer">
+    <span>© <span id="sevdev-year"></span> SEVDEV. All rights reserved.</span>
+  </footer>
+  <script>document.getElementById('sevdev-year').textContent = new Date().getFullYear();</script>
+  <script src="/auth.js"></script>
+</body>
+</html>

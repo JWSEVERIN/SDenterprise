@@ -1,0 +1,5 @@
+/* Signup-specific button styles */
+.btn-primary{background:#0b63d6;color:#fff;border:none;padding:10px 14px;border-radius:8px;cursor:pointer;font-weight:700}
+.btn-primary:hover{filter:brightness(0.95)}
+#signupForm label{display:block;margin:10px 0}
+#signupForm input{width:100%;padding:8px;border-radius:6px;border:1px solid #ffffff}
