@@ -1,6 +1,6 @@
 # Enterprise CRUD
 
-Simple Node.js + Express CRUD demo with a file-backed JSON store.
+Simple Node.js + Express CRUD demo with a file-backed JSON store with local storage.
 
 Quick start:
 
