@@ -2,6 +2,8 @@
 
 Simple Node.js + Express CRUD demo with a file-backed JSON store with local storage.
 
+Node.js with Express is required
+
 Quick start:
 
 ```bash
@@ -10,4 +12,4 @@ npm install
 npm start
 ```
 
-Open http://localhost:3000/employees.html
+link to access on local machine http://localhost:3000/employees.html
